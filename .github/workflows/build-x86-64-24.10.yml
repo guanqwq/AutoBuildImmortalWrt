@@ -1,4 +1,4 @@
-name: build-x86-64-immortalwrt-24.10
+name: 构建 ImmortalWrt 24.10 x86 64
 
 on: [workflow_dispatch]
 
@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout Action
+        uses: actions/checkout@v4.2.2
 
-      - name: Build ImmortalWrt
+      - name: Docker Build ImmortalWrt
         run: |
           docker run --rm -i \
             --user root \
@@ -19,14 +19,14 @@ jobs:
             immortalwrt/imagebuilder:x86-64-openwrt-24.10 \
             /bin/bash /home/build/immortalwrt/build.sh
 
-      - name: Generate Firmware SHA-256
+      - name: Generate SHA-256
         run: |
           for file in ${{ github.workspace }}/bin/targets/x86/64/*; do
             sha256sum "$file" > "${{ github.workspace }}/bin/targets/x86/64/$file.sha256"
             sha256sum -c "${{ github.workspace }}/bin/targets/x86/64/$file.sha256"
           done
 
-      - name: Upload ImmortWrt as release assets
+      - name: Upload Releases
         uses: softprops/action-gh-release@v2.2.1
         with:
           tag_name: Autobuild-x86-64
