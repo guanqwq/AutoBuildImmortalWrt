@@ -15,7 +15,7 @@ jobs:
           docker run --rm -i \
             --user root \
             -v "${{ github.workspace }}/bin:/home/build/immortalwrt/bin" \
-            -v "${{ github.workspace }}/x86-64/24.10/build.sh:/home/build/immortalwrt/build.sh" \
+            -v "${{ github.workspace }}/x86-64/build.sh:/home/build/immortalwrt/build.sh" \
             immortalwrt/imagebuilder:x86-64-openwrt-24.10 \
             /bin/bash /home/build/immortalwrt/build.sh
 
