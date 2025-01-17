@@ -19,13 +19,6 @@ jobs:
             immortalwrt/imagebuilder:x86-64-openwrt-24.10 \
             /bin/bash /home/build/immortalwrt/build.sh
 
-      - name: Generate SHA-256
-        run: |
-          for file in ${{ github.workspace }}/bin/targets/x86/64/*; do
-            sha256sum "$file" > "${{ github.workspace }}/bin/targets/x86/64/$file.sha256"
-            sha256sum -c "${{ github.workspace }}/bin/targets/x86/64/$file.sha256"
-          done
-
       - name: Upload Releases
         uses: softprops/action-gh-release@v2.2.1
         with:
